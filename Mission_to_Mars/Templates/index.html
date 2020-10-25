@@ -23,7 +23,7 @@
         <div class="col-md-10">
             <p><h4>Latest Mars News</h4></p>
             <p><h5>{{ mars.news_title }}</h5></p>
-            <p><h6>Mars is a planet that does not have canals or Martians, although Ray Bradbury wrote wonderful stories about Martian canals and Martians.</h6></p>
+            <p><h6>{{ mars.news_teaser }}</h6></p>
         </div>
     </div>
     <div class="row">
@@ -41,7 +41,7 @@
         </div>
         <div class="col-md-4">
             <figure style="height: 40px; background-color: white; margin-top: 0px;">
-                <img src='https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA17356-1920x1200.jpg' width="600" align="left">
+                <img src='{{ mars.featured_img }}' width="600" align="left">
             </figure>    
         </div>
         <div class="col-md-6">
@@ -103,10 +103,10 @@
         </div>
         <div class="col-md-8">
             <figure style="background-color: white;">
-                    <img src="https://astrogeology.usgs.gov/cache/images/f5e372a36edfa389625da6d0cc25d905_cerberus_enhanced.tif_full.jpg" width="365px" align="left" style="margin-right: 20px">   
+                    <img src="{{ mars.hemisphere_img_cerberus }}" width="365px" align="left" style="margin-right: 20px">   
             </figure>        
             <figure style="background-color: white;">
-                    <img src="https://astrogeology.usgs.gov/cache/images/3778f7b43bbbc89d6e3cfabb3613ba93_schiaparelli_enhanced.tif_full.jpg" width="365px" align="left" style="margin-right: 20px">  
+                    <img src="{{ mars.hemisphere_img_schiaparelli }}" width="365px" align="left" style="margin-right: 20px">  
             </figure> 
         </div>
     </div>
@@ -122,8 +122,8 @@
         </div>
         <div class="col-md-8">
             <figure style="background-color: white; margin-left: 10px;">
-                    <img src="https://astrogeology.usgs.gov/cache/images/555e6403a6ddd7ba16ddb0e471cadcf7_syrtis_major_enhanced.tif_full.jpg" width="365px" align="left" style="margin-right: 20px">  
-                    <img src="https://astrogeology.usgs.gov/cache/images/b3c7c6c9138f57b4756be9b9c43e3a48_valles_marineris_enhanced.tif_full.jpg" width="365px" align="left">  
+                    <img src="{{ mars.hemisphere_img_syrtis_major }}" width="365px" align="left" style="margin-right: 20px">  
+                    <img src="{{ mars.hemisphere_img_valles_marineris }}" width="365px" align="left">  
             </figure>    
         </div> 
     </div>

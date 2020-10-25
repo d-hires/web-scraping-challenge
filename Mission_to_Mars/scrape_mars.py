@@ -10,7 +10,7 @@ import sys
 
 def init_browser():
     executable_path = {'executable_path': 'c:\chromedriver\chromedriver.exe'}
-    return Browser('chrome', **executable_path, headless=False)
+    return Browser('chrome', **executable_path, headless=True)
 
 def scrape():
     browser = init_browser()
@@ -74,11 +74,28 @@ def scrape():
     soup = BeautifulSoup(html, 'html.parser')
 
     itemLink_list = browser.find_by_css('.itemLink')
-    hemisphere_img_urls = []
+    hemisphere_link_urls = []
+    complete_hemisphere_image_urls = []
 
     for item in itemLink_list:
         if "Enhanced" in item.text:
-            hemisphere_img_urls.append({"title": item.text, "img_url": item["href"]})
+            hemisphere_link_urls.append({"title": item.text, "img_url": item["href"]})
+
+    # for url in hemisphere_img_urls:
+    #     print(url)
+    for i in range(len(hemisphere_link_urls)):
+        url = hemisphere_link_urls[i]["img_url"]
+        browser.visit(url)
+        time.sleep(2) 
+
+        html = browser.html
+        soup = BeautifulSoup(html, 'html.parser')
+        html_element = soup.find('div', class_='wide-image-wrapper')
+        html_seg_str = str(html_element)
+        str_start = html_seg_str.find('src="')
+        str_end = html_seg_str.find('"/>')
+        hemisphere_image_url = html_seg_str[str_start + 5:str_end] 
+        complete_hemisphere_image_urls.append('https://astrogeology.usgs.gov' + hemisphere_image_url)
 
     # hemisphere_img_urls = []
     # hemisphere_img_urls.append(
@@ -94,10 +111,13 @@ def scrape():
     mars = [{"news_title": news_title,
                    "news_teaser": news_teaser,
                    "featured_img": complete_featured_image_url,
-                   "hemisphere_img_cerberus": hemisphere_img_urls[0],
-                   "hemisphere_img_schiaparelli": hemisphere_img_urls[1],
-                   "hemisphere_img_syrtis_major": hemisphere_img_urls[2],
-                   "hemisphere_img_valles_marineris": hemisphere_img_urls[3],
+                   "hemisphere_img_cerberus": complete_hemisphere_image_urls[0],
+                   "hemisphere_img_schiaparelli": complete_hemisphere_image_urls[1],
+                   "hemisphere_img_syrtis_major": complete_hemisphere_image_urls[2],
+                   "hemisphere_img_valles_marineris": complete_hemisphere_image_urls[3],
                    }]
-    print(mars, sys.stderr)                   
+    # print(mars, sys.stderr)                   
     return mars
+
+    # return_list = scrape()
+    # print(return_list[0], file = sys.stderr)
